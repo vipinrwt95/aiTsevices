@@ -1,9 +1,10 @@
 import React from "react";
-import { FaPlayCircle, FaInfoCircle, FaCode } from "react-icons/fa"; // Icons
+import { FaPlayCircle, FaInfoCircle } from "react-icons/fa"; // Icons
 
 const GridSection: React.FC = () => {
   return (
-    <div className="container mx-auto p-3 grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="container mx-auto p-3 grid grid-cols-1 md:grid-cols-2 gap-6">
+      
       {/* Card 1 */}
       <div className="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col items-center p-4 transition-transform transform hover:scale-105 duration-300 ease-in-out">
         <div className="relative w-full h-48 rounded-lg overflow-hidden">
@@ -16,7 +17,7 @@ const GridSection: React.FC = () => {
             <FaPlayCircle className="mr-2" /> Play Video
           </button>
         </div>
-        <p className="mt-3 font-semibold text-lg">How Does It Work?</p>
+        <p className="mt-3 font-semibold text-lg">How Does We Function?</p>
       </div>
 
       {/* Card 2 */}
@@ -25,7 +26,7 @@ const GridSection: React.FC = () => {
           95<span className="text-orange-500">+</span>
         </h2>
         <h3 className="text-xl font-semibold mb-4">
-          Unlock your business potential with Suprix
+          Unlock your business potential with aiTservices
         </h3>
         <p className="mb-4 text-sm">
           Join with us to take advantage of technology's potential and prepare
@@ -39,28 +40,6 @@ const GridSection: React.FC = () => {
         </a>
       </div>
 
-      {/* Card 3 */}
-      <div className="bg-white rounded-2xl shadow-lg overflow-hidden flex flex-col items-center relative p-4 transition-transform transform hover:scale-105 duration-300 ease-in-out">
-        <img
-          src="https://images.pexels.com/photos/3184639/pexels-photo-3184639.jpeg?cs=srgb&dl=pexels-fauxels-3184639.jpg&fm=jpg"
-          alt="Services"
-          className="w-full h-48 object-cover rounded-lg"
-        />
-        <div className="absolute bottom-4 left-4 flex gap-2">
-          <span className="bg-gray-200 text-gray-800 px-4 py-1 rounded-full text-sm">
-            App development
-          </span>
-          <span className="bg-gray-200 text-gray-800 px-4 py-1 rounded-full text-sm">
-            Web development
-          </span>
-          <span className="bg-orange-500 text-white px-4 py-1 rounded-full text-sm">
-            More...
-          </span>
-        </div>
-        <div className="absolute top-4 right-4 bg-black bg-opacity-60 text-white rounded-full p-2">
-          <FaCode />
-        </div>
-      </div>
     </div>
   );
 };
