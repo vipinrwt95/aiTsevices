@@ -1,64 +1,53 @@
-name: Build and Deploy to Build Branch
+name: Build and Deploy Dist to Build Branch
 
 on:
-  push:
-    branches:
-      - main  # Trigger on main branch push
+  # Manually trigger the workflow
+  workflow_dispatch:
 
 jobs:
-  build:
+  build_and_deploy:
     runs-on: ubuntu-latest
     name: Build and Deploy Dist Folder
+
     steps:
+      # Checkout code from the repository
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      # Install dependencies
       - name: Install Dependencies
         run: |
-          echo "Installing dependencies..."
-          npm install  # Install dependencies for both TypeScript and Vite
-          echo "Dependencies installed."
+          npm install  # Install dependencies for TypeScript and Vite
 
-      - name: Check Node Version (Optional)
+      # Compile TypeScript and build with Vite
+      - name: Build Project
         run: |
-          echo "Node version:"
-          node --version  # Check if node is available for troubleshooting
-
-      - name: Check npm Version (Optional)
-        run: |
-          echo "NPM version:"
-          npm --version  # Ensure npm is available
-
-      - name: Compile TypeScript and Build with Vite
-        run: |
-          echo "Running TypeScript compilation..."
-          tsc -b  # Compile TypeScript (if using project references)
-          echo "Running Vite build..."
+          tsc -b  # Compile TypeScript if you have project references
           npm run build  # Build with Vite
 
-      - name: Check for dist folder
+      # Check if dist folder is created
+      - name: Check dist folder
         run: |
-          echo "Listing contents of dist folder:"
-          ls -l dist  # List contents of dist to verify if it's generated
+          ls -l dist  # List contents of dist folder to ensure it's created
 
-      - name: Deploy Only `dist` to `build` Branch
+      # Deploy Only dist to build branch
+      - name: Deploy Only dist to build Branch
         run: |
-          echo "Setting up Git for deployment..."
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           
-          echo "Checking out the build branch..."
+          # Checkout the build branch (create it if it doesn't exist)
           git checkout build || git checkout --orphan build
           
-          echo "Removing unnecessary files..."
+          # Remove everything except the dist folder
           rm -rf .github node_modules src public
           
-          echo "Moving dist contents to root..."
-          mv dist/* . && rm -rf dist  # Move contents of dist to root and remove dist folder
+          # Move the contents of dist to the root and remove the dist folder
+          mv dist/* . && rm -rf dist
           
-          echo "Adding changes to Git..."
+          # Add changes to git, commit them, and push to the build branch
           git add .
           git commit -m "Deploy dist folder"
           
-          echo "Pushing changes to build branch..."
+          # Push to the build branch (force push to overwrite any existing content)
           git push --force origin build
