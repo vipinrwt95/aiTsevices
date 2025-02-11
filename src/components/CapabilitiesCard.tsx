@@ -8,7 +8,7 @@ const CapabilitiesCard: React.FC = () => {
         <h3 className="text-lg font-semibold">Our Capabilities</h3>
       </div>
       <h2 className="text-xl font-bold text-gray-900">Your Business Goals Are Our Top Priority</h2>
-      <p className=" text-gray-600">
+      <p className=" text-gray-500">
         Our specialty is creating unique IT solutions that boost your company's productivity. Our passionate staff is committed to boosting your operational efficiency and propelling business success, offering everything from cutting-edge software development to solid IT advice and all in between.
       </p>
 
