@@ -10,20 +10,22 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Push Dist Folder
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm install
 
       - name: Build Project
         run: npm run build  # Ensure this generates a 'dist' folder
 
-      - name: Push `dist` Folder to `build` Branch
-        uses: s0/git-publish-subdir-action@develop
-        env:
-          REPO: self
-          BRANCH: build  # The branch where only 'dist' will be pushed
-          FOLDER: dist  # Change this if your build output is different
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MESSAGE: "Deploy: ({sha}) {msg}"
+      - name: Deploy Only `dist` to `build` Branch
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git checkout --orphan temp_branch
+          rm -rf .github node_modules src public # Remove everything except the build folder
+          mv dist/* . && rm -rf dist  # Move everything from dist to the root
+          git add .
+          git commit -m "Deploy built assets"
+          git push --force origin temp_branch:build
