@@ -6,6 +6,7 @@ const Navbar: React.FC = () => {
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
   };
+  console.log(isMobileMenuOpen)
 
   return (
     <nav className="bg-white shadow-md">
@@ -44,7 +45,7 @@ const Navbar: React.FC = () => {
               </div>
             </div>
             <a href="#" className="text-gray-700 hover:text-orange-500">
-              Blogs
+              Teams
             </a>
             <a href="#" className="text-gray-700 hover:text-orange-500">
               Contact Us

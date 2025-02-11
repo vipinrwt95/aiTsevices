@@ -5,6 +5,8 @@ import About from "../pages/About";
 import Contact from "../pages/Contact";
 import NotFound from "../pages/NotFound";
 import Navbar from "../Layout/Navbar";
+import ApplicationDevelopment from "../components/ApplicationDevelopment"
+
 
 
 interface LayoutProps {
@@ -31,6 +33,20 @@ const routeConfig: RouteConfig[] = [
   { path: "/about", element: <About /> },
   { path: "/contact", element: <Contact /> },
   { path: "*", element: <NotFound /> },
+  {
+    path:"/services/application-development",element:<ApplicationDevelopment/>
+  },{
+    path:"services/web-development",element:<ApplicationDevelopment/>
+  },
+  {
+    path:"services/ui-ux-design",element:<ApplicationDevelopment/>
+  },
+  {
+    path:"/services/software-development",element:<ApplicationDevelopment/>
+  },{
+   path:"/services/technology-consulting" ,element:<ApplicationDevelopment/>
+  }
+  
 ];
 
 const RenderRoute: React.FC = () => {
@@ -45,6 +61,7 @@ const RenderRoute: React.FC = () => {
           />
         ))}
         <Route path="/home" element={<Navigate to="/" />} />
+       
       </Routes>
     </Router>
   );
