@@ -3,29 +3,52 @@ name: Build and Deploy to Build Branch
 on:
   push:
     branches:
-      - main
+      - main  # Trigger on main branch push
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Build and Push Dist Folder
+    name: Build and Deploy Dist Folder
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
       - name: Install Dependencies
-        run: npm install
+        run: |
+          npm install  # Install dependencies for both TypeScript and Vite
 
-      - name: Build Project
-        run: npm run build  # Ensure this generates a 'dist' folder
+      - name: Check Node Version (Optional)
+        run: node --version  # Check if node is available for troubleshooting
+
+      - name: Check npm Version (Optional)
+        run: npm --version  # Ensure npm is available
+
+      - name: Compile TypeScript and Build with Vite
+        run: |
+          tsc -b  # Compile TypeScript (if using project references)
+          npm run build  # Build with Vite
+
+      - name: Check for dist folder
+        run: |
+          ls -l dist  # List contents of dist to verify if it's generated
 
       - name: Deploy Only `dist` to `build` Branch
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git checkout --orphan temp_branch
-          rm -rf .github node_modules src public # Remove everything except the build folder
-          mv dist/* . && rm -rf dist  # Move everything from dist to the root
+          
+          # Checkout the build branch (create if it doesn't exist)
+          git checkout build || git checkout --orphan build
+          
+          # Remove everything except dist contents
+          rm -rf .github node_modules src public
+          
+          # Move contents of dist to root and remove dist folder
+          mv dist/* . && rm -rf dist
+          
+          # Add and commit changes
           git add .
-          git commit -m "Deploy built assets"
-          git push --force origin temp_branch:build
+          git commit -m "Deploy dist folder"
+          
+          # Push to the build branch
+          git push --force origin build
