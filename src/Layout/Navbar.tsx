@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
               Home
             </Link>
             <Link to="/about" className="text-gray-700 hover:text-orange-500">
-              About Us
+              About
             </Link>
             <div className="relative group">
               <button className="text-gray-700 hover:text-orange-500 flex items-center">
