@@ -9,7 +9,7 @@ const ServicesSection: React.FC = () => {
       <CapabilitiesCard />
 
       {/* Right Side: Services Offered */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         <Link to="/services/application-development" className="bg-white rounded-2xl shadow-lg p-4 flex flex-col items-center transition-transform transform hover:scale-105 duration-300 ease-in-out">
           <FaMobileAlt className="text-orange-500 text-4xl mb-2" />
           <h3 className="font-bold text-lg">Application Development</h3>
