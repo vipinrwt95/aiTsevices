@@ -16,6 +16,7 @@ const Navbar: React.FC = () => {
           {/* Logo Section */}
           <div className="flex items-center">
             <h1 className="text-2xl font-bold text-orange-500">aiTServices</h1>
+            <h2>Idea to Product</h2>
           </div>
 
           {/* Desktop Links */}
