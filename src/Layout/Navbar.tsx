@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -19,12 +20,12 @@ const Navbar: React.FC = () => {
 
           {/* Desktop Links */}
           <div className="hidden md:flex space-x-6">
-            <a href="#" className="text-orange-500 font-semibold hover:text-orange-600">
+            <Link to="/" className="text-orange-500 font-semibold hover:text-orange-600">
               Home
-            </a>
-            <a href="#" className="text-gray-700 hover:text-orange-500">
+            </Link>
+            <Link to="/about" className="text-gray-700 hover:text-orange-500">
               About Us
-            </a>
+            </Link>
             <div className="relative group">
               <button className="text-gray-700 hover:text-orange-500 flex items-center">
                 Services <span className="ml-1 text-sm">▼</span>
@@ -44,12 +45,12 @@ const Navbar: React.FC = () => {
                 </a>
               </div>
             </div>
-            <a href="#" className="text-gray-700 hover:text-orange-500">
+            <Link to="/teams" className="text-gray-700 hover:text-orange-500">
               Teams
-            </a>
-            <a href="#" className="text-gray-700 hover:text-orange-500">
+            </Link>
+            <Link to="/contact" className="text-gray-700 hover:text-orange-500">
               Contact Us
-            </a>
+            </Link >
           </div>
 
           {/* Mobile Menu Button */}
