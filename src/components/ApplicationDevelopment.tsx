@@ -6,7 +6,7 @@ const ApplicationDevelopment: React.FC = () => {
     <div className="wrapper bg-gray-100">
       <div className="container mx-auto p-6">
         <h1 className="text-3xl font-bold text-gray-900 mb-4 text-center">
-          Transforming Industries Through Agile Application Solutions
+          Transforming Industries Through Agile Application Solution
         </h1>
         <p className="text-gray-700 mb-6 text-center">
           Our approach goes beyond development—we become your partner in innovation. From concept to deployment, we align our expertise with your vision, delivering solutions that not only solve problems but create opportunities for growth and leadership in your industry.
