@@ -15,8 +15,8 @@ const Navbar: React.FC = () => {
         <div className="flex justify-between items-center h-14">
           {/* Logo Section */}
           <div className="flex items-center">
-            <h1 className="text-2xl font-bold text-orange-500">aiTservices.123</h1>
-            <h2>Idea to Product</h2>
+            <h1 className="text-2xl font-bold text-orange-500">aiTservices</h1>
+            
           </div>
 
           {/* Desktop Links */}
