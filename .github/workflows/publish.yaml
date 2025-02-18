@@ -56,9 +56,11 @@ jobs:
 
       # Trigger Webhook after successful deployment
       - name: Trigger Webhook
-        run: |
-          echo "Triggering webhook..."
-          curl -X POST \
-               -H "Content-Type: application/x-www-form-urlencoded" \
-               --data "status=success&message=Build and deploy completed successfully" \
-               https://webhooks.hostinger.com/deploy/58d0f711aa61264ec48c1ab4fd2be002
+  run: |
+    echo "Triggering webhook..."
+        response=$(curl -v -X POST \
+                     -H "Content-Type: application/x-www-form-urlencoded" \
+                     --data "status=success&message=Build and deploy completed successfully" \
+                     https://webhooks.hostinger.com/deploy/58d0f711aa61264ec48c1ab4fd2be002)
+    echo "Webhook Response: $response"
+
