@@ -6,51 +6,45 @@ on:
       - main
   workflow_dispatch:
 
-
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     name: Build and Deploy Dist Folder
 
     steps:
-      # Checkout code from the repository
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Install dependencies
       - name: Install Dependencies
         run: |
           npm install  # Install dependencies for TypeScript and Vite
 
-      # Compile TypeScript and build with Vite
       - name: Build Project
         run: |
           tsc -b  # Compile TypeScript if you have project references
           npm run build  # Build with Vite
 
-      # Check if dist folder is created
       - name: Check dist folder
         run: |
           ls -l dist  # List contents of dist folder to ensure it's created
 
-      # Deploy Only dist to build branch
       - name: Deploy Only dist to build Branch
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          
-          # Checkout the build branch (create it if it doesn't exist)
+
           git checkout build || git checkout --orphan build
           
-          # Remove everything except the dist folder
           rm -rf .github node_modules src public
           
-          # Move the contents of dist to the root and remove the dist folder
           mv dist/* . && rm -rf dist
           
-          # Add changes to git, commit them, and push to the build branch
           git add .
           git commit -m "Deploy dist folder"
           
-          # Push to the build branch (force push to overwrite any existing content)
-          git push --force origin build
+          git push --force origin build  # Force push to overwrite without conflicts
+
+      # ✅ Webhook trigger after successful deployment
+      - name: Trigger Webhook
+        run: |
+          curl -X POST -H "Content-Type: application/json" --data '{"status":"success"}' https://webhooks.hostinger.com/deploy/58d0f711aa61264ec48c1ab4fd2be002 
