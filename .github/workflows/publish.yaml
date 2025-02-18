@@ -45,6 +45,10 @@ jobs:
           git push --force origin build  # Force push to overwrite without conflicts
 
       # ✅ Webhook trigger after successful deployment
-      - name: Trigger Webhook
-        run: |
-          curl -X POST -H "Content-Type: application/json" --data '{"status":"success"}' https://webhooks.hostinger.com/deploy/58d0f711aa61264ec48c1ab4fd2be002 
+      - name: Trigger Webhook 
+  run: |
+    curl -X POST \
+         -H "Content-Type: application/x-www-form-urlencoded" \
+         --data "status=success" \
+         https://webhooks.hostinger.com/deploy/58d0f711aa61264ec48c1ab4fd2be002
+
