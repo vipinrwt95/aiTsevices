@@ -6,7 +6,6 @@ on:
       - main
   workflow_dispatch:
 
-
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
@@ -54,3 +53,12 @@ jobs:
           
           # Push to the build branch (force push to overwrite any existing content)
           git push --force origin build
+
+      # Trigger Webhook after successful deployment
+      - name: Trigger Webhook
+        run: |
+          echo "Triggering webhook..."
+          curl -X POST \
+               -H "Content-Type: application/x-www-form-urlencoded" \
+               --data "status=success&message=Build and deploy completed successfully" \
+               https://webhooks.hostinger.com/deploy/58d0f711aa61264ec48c1ab4fd2be002
