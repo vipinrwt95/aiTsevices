@@ -24,26 +24,24 @@ jobs:
           tsc -b  # Compile TypeScript if you have project references
           npm run build  # Build with Vite
 
-      - name: Check dist folder
+      - name: Check dist folder exists
         run: |
-          ls -l dist  # List contents of dist folder to ensure it's created
+          if [ ! -d "dist" ]; then
+            echo "dist folder not found, exiting!";
+            exit 1;
+          fi
 
       - name: Deploy Only dist to build Branch
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
-          # Fetch latest build branch
           git fetch origin build || true  # Ignore errors if branch doesn't exist
-
-          # Checkout build branch or create it if it doesn't exist
           git checkout build || git checkout --orphan build
           
-          # Ensure no old files remain
           git reset --hard origin/build || true
           git clean -fd
 
-          # Remove everything except the dist folder
           rm -rf .github node_modules src public
           
           mv dist/* . && rm -rf dist
@@ -51,8 +49,7 @@ jobs:
           git add .
           git commit -m "Deploy dist folder"
           
-          # Force push to ensure clean deployment
-          git push --force origin build
+          git push --force origin build  # Force push to overwrite without conflicts
 
       - name: Trigger Webhook
         run: |
